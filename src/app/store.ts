@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import meetingsReducer from '../components/meeting/meetingsSlice';
+import worklogReducer from '../components/worklog/worklogSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    meetings: meetingsReducer,
+    worklog: worklogReducer,
   },
 });
 

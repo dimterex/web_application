@@ -1,58 +1,95 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import Calendar from './components/calendar/calendar';
+
 import './App.css';
+import { Meetengs } from './components/meeting/meetings';
+import { useAppDispatch } from './app/hooks';
+import { getMeetingsByDateAsync } from './components/meeting/meetingsSlice';
+import moment from 'moment';
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from "@mui/material/CssBaseline";
+
+import { getMonthStatisticsAsync } from './components/worklog/worklogSlice';
+import Navbar from './components/header/header';
+import { MainPage } from './pages/main';
+import { BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
+import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
+
+const themeLight = createTheme({
+  palette: {
+    background: {
+      default: "#e4f0e2"
+    },    
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: '#000'
+        },
+      },
+    },
+  },
+});
+
+const themeDark = createTheme({
+  palette: {
+    background: {
+      default: "#4A4A4A",
+      paper: '#516c6ccc',
+    },
+  }, 
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: '#000'
+        },
+      },
+    },
+  },
+});
+
+moment.locale('en', {
+  week: {
+      dow: 1
+  }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+
+  const [light, setLight] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const now = moment();
+  dispatch(getMeetingsByDateAsync(now));
+  dispatch(getMonthStatisticsAsync({
+    day: now,
+    force: false
+  }));
+
+  return ( 
+    <ThemeProvider theme={light ? themeLight : themeDark}>
+      <CssBaseline />
+      <ReactNotifications />
+     
+      <BrowserRouter>
+          <Navbar handlerThemeChange={() => setLight(prev => !prev)}  />
+          <Routes>
+            <Route path='/' element={<MainPage />}></Route>
+            <Route path='/logger' element={ <Meetengs />}></Route>
+          </Routes>
+      </BrowserRouter>
+
+
+  </ThemeProvider>);
 }
 
-export default App;
+
+export default App

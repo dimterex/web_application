@@ -2,12 +2,12 @@ import { Box, Button, Stack } from "@mui/material";
 import { DataGrid, GridCellEditCommitParams, GridColDef, GridRowId, GridRowSpacingParams, GridSelectionModel, MuiBaseEvent, MuiEvent } from "@mui/x-data-grid";
 import React from "react";
 import { nameofFactory } from "../../../app/helper";
-import { MeetingCategoryModel } from "../interfaces/meetingCategoryModel";
-import { add_new_meeting_category, getMeetingCategoriesAsync, remove_meeting_categories, setMeetingCategoriesAsync, update_meeting_category } from "../configurationSlice";
 import { connect } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
+import { TaskCategoryModel } from "../interfaces/taskCategoryModel";
+import { add_new_task_category, getTaskCategoriesAsync, setTaskCategoriesAsync, update_task_category } from "../configurationSlice";
 
-export type MeetingCategoryRow = {
+export type TaskCategoryRow = {
   name: string,
   trackerId: string,
   link: string | null,
@@ -16,13 +16,13 @@ export type MeetingCategoryRow = {
 
 
 type Props = {
-  data: Array<MeetingCategoryRow>,
+  data: Array<TaskCategoryRow>,
   status: 'loading' | 'idle',
   initialize: () => void,
   addRow: () => void,
   removeRows: (ids: GridRowId[]) => void,
-  onEditCommit: (category: MeetingCategoryRow) => void,
-  saveData: (categories: MeetingCategoryModel[]) => void,
+  onEditCommit: (category: TaskCategoryRow) => void,
+  saveData: (categories: TaskCategoryModel[]) => void,
 };
 
 type State = {
@@ -31,34 +31,34 @@ type State = {
 
 const mapStateToProps = (state: RootState) => {
   return { 
-    data: state.configuration.meetings_categories,
-    status: state.configuration.meeting_state,
+    data: state.configuration.task_categories,
+    status: state.configuration.task_state,
   };
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return {
     initialize: async () => {
-      dispatch(getMeetingCategoriesAsync());
+      dispatch(getTaskCategoriesAsync());
     },
     addRow: async () => {
-      dispatch(add_new_meeting_category());
+      dispatch(add_new_task_category());
     },
     removeRows: async (ids: GridRowId[]) => {
-      dispatch(remove_meeting_categories(ids));
+      dispatch(remove_task_category(ids));
     },
-    onEditCommit: async (category: MeetingCategoryRow) => {
-      dispatch(update_meeting_category(category));
+    onEditCommit: async (category: TaskCategoryRow) => {
+      dispatch(update_task_category(category));
     },
 
-    saveData: async (categories: MeetingCategoryModel[]) => {
-      dispatch(setMeetingCategoriesAsync(categories));
+    saveData: async (categories: TaskCategoryModel[]) => {
+      dispatch(setTaskCategoriesAsync(categories));
     }
   };
 };
 
 
-class MeetingsCategorieslView extends React.Component<Props, State> {
+class TaskCategorieslView extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -66,7 +66,7 @@ class MeetingsCategorieslView extends React.Component<Props, State> {
     this.state = { selectionModel: undefined };
   }
 
-    nameOfLogMessage = nameofFactory<MeetingCategoryModel>();
+    nameOfLogMessage = nameofFactory<TaskCategoryRow>();
     
     onEditCommit = (params: GridCellEditCommitParams, event: MuiEvent) => {
       var category = this.props.data.find(raw => raw.id == params.id);
@@ -86,7 +86,6 @@ class MeetingsCategorieslView extends React.Component<Props, State> {
     columns: GridColDef[] = [
         { field: this.nameOfLogMessage('name'), headerName: this.nameOfLogMessage('name'), flex: 1, editable: true,  },
         { field: this.nameOfLogMessage('trackerId'), headerName: this.nameOfLogMessage('trackerId'), editable: true, },
-        { field: 'id', headerName: 'id', },
         { field: this.nameOfLogMessage('link'), headerName: this.nameOfLogMessage('link'), flex: 3, editable: true, },
       ];
 
@@ -115,7 +114,6 @@ class MeetingsCategorieslView extends React.Component<Props, State> {
             disableSelectionOnClick
             onSelectionModelChange={(newSelectionModel) => {
               this.setState({
-                  ...this.state,
                   selectionModel: newSelectionModel
                 })
             }}
@@ -130,4 +128,8 @@ class MeetingsCategorieslView extends React.Component<Props, State> {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MeetingsCategorieslView);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskCategorieslView);
+function remove_task_category(ids: GridRowId[]): any {
+  throw new Error("Function not implemented.");
+}
+

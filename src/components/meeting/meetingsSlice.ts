@@ -41,7 +41,6 @@ export const meetingsSlice = createSlice({
       state.day = action.payload;
       state.events = []
     },
-
   },
   extraReducers: (builder) => {
     builder

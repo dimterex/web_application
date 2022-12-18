@@ -8,9 +8,10 @@ import TextField from "@mui/material/TextField";
 import { change_selected_day, getMeetingsByDateAsync } from "../meeting/meetingsSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getMonthStatisticsAsync, selectWorklogResultState, SUCCESS_WORKLOG_TIME } from "../worklog/worklogSlice";
+import { ClassesProps } from "../interfaces/commonComponentProps";
 
 
-export default function Calendar()  {   
+export default function Calendar(props: ClassesProps)  {   
 
   const writed = {
     color: "#02bd02",
@@ -50,8 +51,8 @@ export default function Calendar()  {
         );
       };
 
-    return<LocalizationProvider dateAdapter={AdapterMoment}>
-            <StaticDatePicker
+    return<LocalizationProvider  dateAdapter={AdapterMoment}>
+            <StaticDatePicker className={props.classes}
                 displayStaticWrapperAs="desktop"
                 value={value}
                 renderDay={renderWeekPickerDay}

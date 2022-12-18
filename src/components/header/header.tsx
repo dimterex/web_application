@@ -5,10 +5,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import React from "react";
 import { HeaderInterface } from "./interface/headerInterface";
   
-const pages = [{
-  name: 'Docker logviewer',
-  url: '/logger'
-}];
 
 
 const Navbar = (props: HeaderInterface) => {
@@ -25,7 +21,7 @@ const Navbar = (props: HeaderInterface) => {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{zIndex: 99999}}>
     <Container maxWidth="xl">
       <Toolbar disableGutters>
         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -77,7 +73,7 @@ const Navbar = (props: HeaderInterface) => {
             }}
           >
             {
-              pages.map((page, index) => (
+              props.pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <Typography 
                       noWrap
@@ -111,16 +107,18 @@ const Navbar = (props: HeaderInterface) => {
           Main
         </Typography>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page, index) => (
-            <Button
-              key={index}
-              onClick={handleCloseNavMenu}
-              href={page.url}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              {page.name}
-            </Button>
-          ))}
+          {
+            props.pages.map((page, index) => (
+              <Button
+                key={index}
+                onClick={handleCloseNavMenu}
+                href={page.url}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page.name}
+              </Button>
+            ))
+          }
         </Box>
 
         <Button onClick={props.handlerThemeChange}>Toggle Theme</Button>

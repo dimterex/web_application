@@ -21,9 +21,10 @@ import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import { Paper, Tooltip } from '@mui/material';
 import { WriteWorklogDialog } from './writeWorklogDialog';
 import { HistoryWorklogByDayDialog } from './historyWorklogByDayDialog';
+import { ClassesProps } from '../interfaces/commonComponentProps';
 
   
-export function Meetengs() {
+export function Meetengs(props: ClassesProps) {
     const [open, setOpen] = React.useState(false);
     const [applyDisabled, setApplyDisabled] = React.useState(false);
     
@@ -56,11 +57,11 @@ export function Meetengs() {
         dispatch(setWorklogByDateAsync(current_day));
     }
 
-    return  <div className="meetings">
+    return  <div  className={props.classes}>
         <Accordion disableGutters>
             <AccordionSummary>
                 <div className='grid-container'>                    
-                    <div className='grid-child fisrt' >
+                    <div className='grid-child' >
                         {selected_day_state}
                     </div>
                     

@@ -15,12 +15,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import { getMonthStatisticsAsync } from './components/worklog/worklogSlice';
 import Navbar from './components/header/header';
-import { MainPage } from './pages/main';
+import { MainView } from './pages/mainView';
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+import { LoggerView } from './pages/loggerView';
+import ConfigurationView from './pages/configurationView';
 
 const themeLight = createTheme({
   palette: {
@@ -74,16 +76,26 @@ function App() {
     force: false
   }));
 
+  const pages = [{
+    name: 'Dozzle logviewer',
+    url: 'http://dimterex-ubuntu:60005/'
+  }, {
+    name: 'Configurations',
+    url: '/configuration'
+  }];
+
   return ( 
     <ThemeProvider theme={light ? themeLight : themeDark}>
       <CssBaseline />
       <ReactNotifications />
      
       <BrowserRouter>
-          <Navbar handlerThemeChange={() => setLight(prev => !prev)}  />
+          <Navbar pages={pages} handlerThemeChange={() => setLight(prev => !prev)}  />
           <Routes>
-            <Route path='/' element={<MainPage />}></Route>
-            <Route path='/logger' element={ <Meetengs />}></Route>
+            <Route path='/' element={<MainView />}></Route>
+            <Route path='/logger' element={ <LoggerView />}></Route>
+            <Route path='/configuration' element={ <ConfigurationView />}></Route>
+            
           </Routes>
       </BrowserRouter>
 

@@ -1,8 +1,5 @@
-import { Action } from "@reduxjs/toolkit";
-import moment, { Moment } from "moment";
-import React, { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { MeetingsItem } from "./meetingsSlice";
+import moment from "moment";
+import React from "react";
 
 
 import Accordion from '@mui/material/Accordion';
@@ -11,6 +8,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link, Paper } from "@mui/material";
+import { MeetingsItem } from "../../api/meetings/meetingsItem";
 
 type MeetingProps = {
     event: MeetingsItem

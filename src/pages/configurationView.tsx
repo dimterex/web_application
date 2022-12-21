@@ -1,4 +1,3 @@
-import { useAppDispatch } from "../app/hooks";
 import { ConfigurationFactory } from "../components/configuration/configurationFactory";
 import { ConfigurationsContainer } from "../components/configuration/configurationsContainer";
 

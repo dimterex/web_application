@@ -26,6 +26,7 @@ export function ConfigurationsContainer(props: ClassesProps) {
     types.push(ConfigurationTypes.todoist_categories);
     types.push(ConfigurationTypes.tokens);
     types.push(ConfigurationTypes.urls);
+    types.push(ConfigurationTypes.periodical_tasks);
 
    
     let selectedSource = useAppSelector(selectSelectedType);

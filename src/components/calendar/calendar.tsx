@@ -20,6 +20,13 @@ export default function Calendar(props: ClassesProps)  {
     textDecoration: "underline"
   };
 
+  const not_writed_full_time = {
+    color: "#e8da13",
+    fontWeight: "bold",
+    fontSize: 18,
+    textDecoration: "underline"
+  };
+
     const [value, setValue] = React.useState<Moment | null>(moment());
     const dispatch = useAppDispatch();
     const worklog_state = useAppSelector(selectWorklogResultState)
@@ -30,11 +37,16 @@ export default function Calendar(props: ClassesProps)  {
         pickersDayProps: PickersDayProps<Moment>
       ) => {
         const matchedStyles = worklog_state.reduce((a, v) => {
-          let worklog_day = moment(v.date)
-          let isDone = worklog_day.isSame(date, 'date') && v.duration > SUCCESS_WORKLOG_TIME;
-          if (isDone) {
+          let worklog_day = moment(v.date);
+          let isSameDate = worklog_day.isSame(date, 'date');
+          if (isSameDate && v.duration > SUCCESS_WORKLOG_TIME) {
             return writed
           }
+
+          if (isSameDate && v.duration > 0) {
+            return not_writed_full_time
+          }
+
           return a;
         }, {});
       

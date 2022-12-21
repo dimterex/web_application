@@ -53,8 +53,8 @@ export function Meetengs(props: ClassesProps) {
     };
 
     const handleApply = () => {
-        setApplyDisabled(true);
         dispatch(setWorklogByDateAsync(current_day));
+        handleClose();
     }
 
     return  <div  className={props.classes}>
@@ -75,7 +75,6 @@ export function Meetengs(props: ClassesProps) {
                                 ? <HistoryWorklogByDayDialog open={open} onClose={handleClose} />
                                 : <WriteWorklogDialog open={open} onClose={handleClose} onApply={handleApply} applyDisabled={applyDisabled} />  
                         }
-
                     
                     </div>
                 </div>

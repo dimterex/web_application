@@ -12,7 +12,6 @@ import { NotificationService } from '../notification/notificationService';
 
 const initialState: WorklogState = {
   events: [],
-  worklog_message: null,
   history_message: null,
 };
 
@@ -62,7 +61,6 @@ export const worklogSlice = createSlice({
   initialState,
   reducers: {
     clear_worklog_message: (state, action: PayloadAction) => {
-      state.worklog_message = null;
     },
 
   },
@@ -76,8 +74,8 @@ export const worklogSlice = createSlice({
       })
 
       .addCase(setWorklogByDateAsync.fulfilled, (state, action) => {
-        state.worklog_message = action.payload.response;
         state.events = action.payload.statistics ?? [];
+        NotificationService.raise_success(null, action.payload.response as string);
       })
       .addCase(setWorklogByDateAsync.rejected, (state, action) => {
         NotificationService.raise_error(null, action.payload as string);
@@ -92,7 +90,6 @@ export const worklogSlice = createSlice({
   },
 });
 
-export const selectWorklogResultMessageState = (state: RootState) => state.worklog.worklog_message;
 export const selectHistoryWorklogResultState = (state: RootState) => state.worklog.history_message;
 export const selectWorklogResultState = (state: RootState) => state.worklog.events;
 

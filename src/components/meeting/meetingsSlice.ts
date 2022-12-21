@@ -2,16 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment, { Moment } from 'moment';
 import { RootState } from '../../app/store';
 import { NotificationService } from '../notification/notificationService';
-import { getMeetingsByDate } from './meetingsApi';
+import { getMeetingsByDate } from '../../api/meetings/meetingsApi';
+import { MeetingsItem } from '../../api/meetings/meetingsItem';
 
-export interface MeetingsItem {
-  name: string;
-  start_time: string;
-  duration: number;
-  categories: string[] | null;
-  description: string;
-  location: string | null;
-}
 
 export interface MeetingsByDateState {
   events: MeetingsItem[];

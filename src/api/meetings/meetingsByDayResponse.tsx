@@ -1,4 +1,4 @@
-import { MeetingsItem } from "../meetingsSlice";
+import { MeetingsItem } from "./meetingsItem";
 
 export interface MeetingsByDayResponse {
     messages: MeetingsItem[] | null,

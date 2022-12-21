@@ -4,4 +4,5 @@ export enum ConfigurationTypes {
   'outlook_categories',
   'todoist_categories',
   'tokens',
+  'periodical_tasks',
 }

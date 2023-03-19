@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
-import Calendar from "../components/calendar/calendar";
-import { Meetengs } from "../components/meeting/meetings";
-import DockerContainerView from "../components/docker/dockerContainer";
+import Calendar from "../components/main_tab/calendar/calendar";
+import { Meetengs } from "../components/main_tab/meeting/meetings";
+
+import DockerContainerView from "../components/main_tab/docker/dockerContainerView"
 
 export function MainView() {
     return <div className='grid-container'>

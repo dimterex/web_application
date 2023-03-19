@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UrlModel } from "../../components/urls/urlModel";
+import { UrlModel } from "../../components/configuration_tab/urls/urlModel";
 import { BaseSetResponse } from "../base_set_response";
 import { CONFIGURATION_REQUEST_URL } from "./credentialsApi";
 import { GeUrlsResponse } from "./messages/getUrlsResponse";

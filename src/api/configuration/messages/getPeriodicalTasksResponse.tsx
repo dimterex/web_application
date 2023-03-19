@@ -1,4 +1,4 @@
-import { PeriodicalTaskModel } from "../../../components/periodical_tasks/periodicalTaskModel";
+import { PeriodicalTaskModel } from "../../../components/configuration_tab/periodical_tasks/periodicalTaskModel";
 
 export interface GetPeriodicalTasksResponse {
     status: 'ok' | 'error',

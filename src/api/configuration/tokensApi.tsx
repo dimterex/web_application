@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TokenModel } from "../../components/tokens/tokenModel";
+import { TokenModel } from "../../components/configuration_tab/tokens/tokenModel";
 import { BaseSetResponse } from "../base_set_response";
 import { CONFIGURATION_REQUEST_URL } from "./credentialsApi";
 import { GeTokensResponse } from "./messages/getTokensResponse";

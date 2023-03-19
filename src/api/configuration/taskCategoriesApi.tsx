@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TaskCategoryModel } from "../../components/task_categories/taskCategoryModel";
+import { TaskCategoryModel } from "../../components/configuration_tab/task_categories/taskCategoryModel";
 import { BaseSetResponse } from "../base_set_response";
 import { CONFIGURATION_REQUEST_URL } from "./credentialsApi";
 import { GeTaskCategoriesResponse } from "./messages/getTaskCategoriesResponse";

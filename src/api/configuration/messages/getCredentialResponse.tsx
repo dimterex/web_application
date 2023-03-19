@@ -1,4 +1,4 @@
-import { CredentialModel } from "../../../components/credentials/credentialModel";
+import { CredentialModel } from "../../../components/configuration_tab/credentials/credentialModel";
 
 export interface GetCredentialsResponse {
     status: 'ok' | 'error',

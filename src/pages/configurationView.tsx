@@ -1,5 +1,5 @@
-import { ConfigurationFactory } from "../components/configuration/configurationFactory";
-import { ConfigurationsContainer } from "../components/configuration/configurationsContainer";
+import { ConfigurationFactory } from "../components/configuration_tab/configuration/configurationFactory";
+import { ConfigurationsContainer } from "../components/configuration_tab/configuration/configurationsContainer";
 
 export default function ConfigurationView() {
   return (

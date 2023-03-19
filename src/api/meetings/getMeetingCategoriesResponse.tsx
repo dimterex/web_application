@@ -1,4 +1,4 @@
-import { MeetingCategoryModel } from "../../components/meeting_categories/meetingCategoryModel";
+import { MeetingCategoryModel } from "../../components/configuration_tab/meeting_categories/meetingCategoryModel";
 
 export interface GetMeetingCategoriesResponse {
     status: 'ok' | 'error',

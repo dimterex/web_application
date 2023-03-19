@@ -2,7 +2,7 @@ import axios from "axios";
 import { REQUEST_URL } from "../../app/build";
 import { GetCredentialsResponse } from "./messages/getCredentialResponse";
 import { BaseSetResponse } from "../base_set_response";
-import { CredentialModel } from "../../components/credentials/credentialModel";
+import { CredentialModel } from "../../components/configuration_tab/credentials/credentialModel";
 
 export const CONFIGURATION_REQUEST_URL = `${REQUEST_URL}/configuration`
 

@@ -1,20 +1,13 @@
 
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-import Calendar from './components/calendar/calendar';
 
 import './App.css';
-import { Meetengs } from './components/meeting/meetings';
 import { useAppDispatch } from './app/hooks';
-import { getMeetingsByDateAsync } from './components/meeting/meetingsSlice';
 import moment from 'moment';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { getMonthStatisticsAsync } from './components/worklog/worklogSlice';
-import Navbar from './components/header/header';
 import { MainView } from './pages/mainView';
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
@@ -22,6 +15,9 @@ import { Routes, Route } from 'react-router-dom';
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 import ConfigurationView from './pages/configurationView';
+import Navbar from './common/header/header';
+import { getMeetingsByDateAsync } from './components/main_tab/meeting/meetingsSlice';
+import { getMonthStatisticsAsync } from './components/main_tab/worklog/worklogSlice';
 
 const themeLight = createTheme({
   palette: {

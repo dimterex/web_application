@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PeriodicalTaskModel } from "../../components/periodical_tasks/periodicalTaskModel";
+import { PeriodicalTaskModel } from "../../components/configuration_tab/periodical_tasks/periodicalTaskModel";
 import { BaseSetResponse } from "../base_set_response";
 import { CONFIGURATION_REQUEST_URL } from "./credentialsApi";
 import { GetPeriodicalTasksResponse } from "./messages/getPeriodicalTasksResponse";

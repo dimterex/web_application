@@ -2,7 +2,7 @@ import axios from "axios";
 import { BaseSetResponse } from "../base_set_response";
 import { CONFIGURATION_REQUEST_URL } from "./credentialsApi";
 import { GetMeetingCategoriesResponse } from "../meetings/getMeetingCategoriesResponse";
-import { MeetingCategoryModel } from "../../components/meeting_categories/meetingCategoryModel";
+import { MeetingCategoryModel } from "../../components/configuration_tab/meeting_categories/meetingCategoryModel";
 
 export async function getMeetingCategories() {
     let res = await axios.get(`${CONFIGURATION_REQUEST_URL}/get_meeting_categories`);

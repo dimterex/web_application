@@ -1,4 +1,4 @@
-import { TokenModel } from "../../../components/configuration/interfaces/tokenModel";
+import { TokenModel } from "../../../components/tokens/tokenModel";
 
 export interface GeTokensResponse {
     status: 'ok' | 'error',

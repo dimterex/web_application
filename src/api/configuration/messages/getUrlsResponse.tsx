@@ -1,4 +1,4 @@
-import { UrlModel } from "../../../components/configuration/interfaces/urlModel";
+import { UrlModel } from "../../../components/urls/urlModel";
 
 export interface GeUrlsResponse {
     status: 'ok' | 'error',

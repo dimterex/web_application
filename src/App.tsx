@@ -21,7 +21,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
-import { LoggerView } from './pages/loggerView';
 import ConfigurationView from './pages/configurationView';
 
 const themeLight = createTheme({
@@ -93,7 +92,6 @@ function App() {
           <Navbar pages={pages} handlerThemeChange={() => setLight(prev => !prev)}  />
           <Routes>
             <Route path='/' element={<MainView />}></Route>
-            <Route path='/logger' element={ <LoggerView />}></Route>
             <Route path='/configuration' element={ <ConfigurationView />}></Route>
             
           </Routes>

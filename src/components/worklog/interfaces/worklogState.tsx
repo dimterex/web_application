@@ -1,4 +1,4 @@
-import { MonthTime } from "./monthTimesResponse";
+import { MonthTime } from "../../../api/statistics/messages/monthTimesResponse";
 
 export interface WorklogState {
   events: MonthTime[];

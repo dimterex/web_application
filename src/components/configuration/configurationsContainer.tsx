@@ -2,7 +2,7 @@ import { Box, List, ListItemButton, ListItemIcon, ListItemText, Divider } from "
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { ClassesProps } from "../interfaces/commonComponentProps";
-import { change_selected_type, getCredentialsAsync, getMeetingCategoriesAsync, selectSelectedType } from "./configurationSlice";
+import { change_selected_type, selectSelectedType } from "./configurationSlice";
 import { ConfigurationTypes } from "./configurationTypes";
 
 export function ConfigurationsContainer(props: ClassesProps) {

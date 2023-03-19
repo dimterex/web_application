@@ -1,4 +1,4 @@
 export interface BaseSetResponse {
     status: 'ok' | 'error',
-    exception: string,
+    message: string,
 }

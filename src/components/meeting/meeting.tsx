@@ -26,7 +26,7 @@ export class Meeting extends React.Component<MeetingProps, {}> {
             textDecoration: done ? 'inherit' : 'line-through', // note the capital 'W' here
         };
 
-        var matches: Array<string> | null = this.props.event.description.match(/\bhttps?:\/\/\S+/gi);
+        var matches: Array<string> | null = this.props.event.description.match(/\bhttps?:\/\/\S+\b/gi);
         if (matches == null)
             matches = []
 

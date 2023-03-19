@@ -3,9 +3,8 @@ import moment, { Moment } from 'moment';
 import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
 import { RootState } from '../../app/store';
-import { HistoryItemResponse } from './interfaces/historyItemResponse';
 import { WorklogState } from './interfaces/worklogState';
-import { getHistoryWorklogByDate, getMonthStatistics, setWorklogByDate } from './worklogApi';
+import { getHistoryWorklogByDate, getMonthStatistics, setWorklogByDate } from '../../api/statistics/worklogApi';
 
 import { Store } from 'react-notifications-component';
 import { NotificationService } from '../notification/notificationService';

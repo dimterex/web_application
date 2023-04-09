@@ -6,7 +6,6 @@ import React from "react";
 import { HeaderInterface } from "./interface/headerInterface";
   
 
-
 const Navbar = (props: HeaderInterface) => {
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -121,7 +120,7 @@ const Navbar = (props: HeaderInterface) => {
           }
         </Box>
 
-        <Button onClick={props.handlerThemeChange}>Toggle Theme</Button>
+        <Button onClick={props.handlerThemeChange} sx={{ my: 2, color: 'white', display: 'block' }}>Toggle Theme</Button>
         
       </Toolbar>
     </Container>

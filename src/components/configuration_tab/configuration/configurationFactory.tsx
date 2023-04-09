@@ -32,12 +32,12 @@ export function ConfigurationFactory() {
             case ConfigurationTypes.sync_history:
                 return  <SyncHistorylView />
             default:
-                return 'foo';
+                return <Box />
         }
     }
 
-    return (
-        <Box sx={{ bgcolor: 'background.paper' }} >
+    return ( 
+        <Box>
             {   
                 renderSwitch()
             }

@@ -1,11 +1,10 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Button, Divider, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, TextField } from "@mui/material";
+import { Box, Button, Divider, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, TextField } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
 import { CredentialModel } from "./credentialModel";
 import { getCredentialsAsync, setCredentionalsAsync } from "./credentialsConfigurationSlice";
-
 
 type Props = {
   login: string,
@@ -94,10 +93,10 @@ class CredentionalView extends React.Component<Props, State> {
     })
   };
 
-
   render() {
-    return (
-      <Stack spacing={1} className="grid-child" sx={{ bgcolor: 'background.paper' }}>
+    return ( 
+    <Box width='calc(30%)'>
+          <Stack spacing={2} >
           <Divider />
           <TextField id="Login-basic" label="Login" variant="outlined" value={this.state.login} onChange={(event) => this.setState({login: event.target.value})} />
 
@@ -129,8 +128,8 @@ class CredentionalView extends React.Component<Props, State> {
           <Button onClick={this.handleListItemClick} disabled={ this.state.status == 'loading' }>
                 Save credentials
           </Button>
-          
-    </Stack>
+      </Stack>
+    </Box>
     );
   }
 }

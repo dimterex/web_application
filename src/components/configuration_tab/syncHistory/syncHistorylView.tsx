@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridColDef, GridRowSpacingParams, GridSelectionModel, GridSortModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowSpacingParams, GridSelectionModel } from "@mui/x-data-grid";
 import React from "react";
 import { connect } from "react-redux";
 import { SyncHistoryItem } from "../../../api/sync/syncHistoryItem";
@@ -59,15 +59,18 @@ class SyncHistoryView extends React.Component<Props, State> {
       };
     };
 
-
     render() {
       return <Box>
         <DataGrid
               autoHeight
               disableSelectionOnClick
-              pagination pageSize={50}
+              pagination pageSize={14}
               getRowHeight={() => 'auto'}
-              
+              initialState={{
+                sorting: {
+                  sortModel: [{ field: this.nameOfLogMessage('timestamp'), sort: 'desc' }],
+                },
+              }}
               rows={this.props.data}
               columns={this.columns}
               getRowSpacing={this.getRowSpacing}
@@ -77,4 +80,3 @@ class SyncHistoryView extends React.Component<Props, State> {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SyncHistoryView);
-

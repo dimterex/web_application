@@ -6,12 +6,12 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 import TextField from "@mui/material/TextField";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { ClassesProps } from "../../../common/interfaces/commonComponentProps";
 import { change_selected_day, getMeetingsByDateAsync } from "../meeting/meetingsSlice";
 import { selectWorklogResultState, SUCCESS_WORKLOG_TIME, getMonthStatisticsAsync } from "../worklog/worklogSlice";
+import { Widget } from "../../../common/widget/baseWidget";
 
 
-export default function Calendar(props: ClassesProps)  {   
+export default function Calendar()  {   
 
   const writed = {
     color: "#02bd02",
@@ -63,27 +63,30 @@ export default function Calendar(props: ClassesProps)  {
         );
       };
 
-    return<LocalizationProvider  dateAdapter={AdapterMoment}>
-            <StaticDatePicker className={props.classes}
-                displayStaticWrapperAs="desktop"
-                value={value}
-                renderDay={renderWeekPickerDay}
-                onMonthChange={(newValue) => {
-                  dispatch(getMonthStatisticsAsync({
-                    day: newValue,
-                    force: false
-                  }))
-                }}
-                onChange={(newValue) => {
-                    if (newValue) {
-                        dispatch(change_selected_day(newValue.format('LL')));
-                        dispatch(getMeetingsByDateAsync(newValue));
-                        setValue(newValue);
-                    }
-                }}
-                renderInput={(params) => <TextField {...params} />}
-        />
-    </LocalizationProvider>
+    return <Widget>
+      <LocalizationProvider  dateAdapter={AdapterMoment}>
+              <StaticDatePicker 
+                  displayStaticWrapperAs="desktop"
+                  value={value}
+                  renderDay={renderWeekPickerDay}
+                  onMonthChange={(newValue) => {
+                    dispatch(getMonthStatisticsAsync({
+                      day: newValue,
+                      force: false
+                    }))
+                  }}
+                  onChange={(newValue) => {
+                      if (newValue) {
+                          dispatch(change_selected_day(newValue.format('LL')));
+                          dispatch(getMeetingsByDateAsync(newValue));
+                          setValue(newValue);
+                      }
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+          />
+      </LocalizationProvider>
+    </Widget>
+      
 }
 
 

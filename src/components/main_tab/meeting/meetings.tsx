@@ -14,11 +14,11 @@ import { Box, Paper, Tooltip } from '@mui/material';
 import { WriteWorklogDialog } from './writeWorklogDialog';
 import { HistoryWorklogByDayDialog } from './historyWorklogByDayDialog';
 import { MeetingsItem } from '../../../api/meetings/meetingsItem';
-import { ClassesProps } from '../../../common/interfaces/commonComponentProps';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Widget } from '../../../common/widget/baseWidget';
 
   
-export function Meetengs(props: ClassesProps) {
+export function Meetengs() {
     const [open, setOpen] = React.useState(false);
     const [applyDisabled, setApplyDisabled] = React.useState(false);
     
@@ -62,15 +62,15 @@ export function Meetengs(props: ClassesProps) {
         location: 'Home'
     };
 
-    return  <div  className={props.classes}>
+    return  <Widget >
         <Accordion disableGutters>
             <AccordionSummary>
                 <div className='grid-container'>                    
-                    <div className='grid-child' >
+                    <div >
                         {selected_day_state}
                     </div>
                     
-                    <div className='grid-child last'>
+                    <div>
                         <Tooltip title={current_day_duration}>
                             { isWrote ? <CheckCircleOutlineIcon onClick={handleClickOpen} /> : <DangerousOutlinedIcon onClick={handleClickOpen} /> }
                         </Tooltip>
@@ -93,6 +93,6 @@ export function Meetengs(props: ClassesProps) {
                 ))
                 :  <Meeting key={0} event={empty } />
         }
-    </div>
+    </Widget>
 }
 

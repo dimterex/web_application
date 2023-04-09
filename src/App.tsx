@@ -39,19 +39,23 @@ const themeLight = createTheme({
 const themeDark = createTheme({
   palette: {
     background: {
-      default: "#4A4A4A",
-      paper: '#516c6ccc',
+      default: "#1E1E1E",
+      paper: '#252526',
+    },
+    text:{
+      primary: "#efefd8",
+      secondary: '#358CD6'
     },
   }, 
   components: {
-    MuiButton: {
+    MuiAppBar: {
       styleOverrides: {
-        root: {
-          color: '#000'
-        },
-      },
+        colorPrimary: {
+          backgroundColor: "#252526"
+        }
+      }
     },
-  },
+  }
 });
 
 moment.locale('en', {

@@ -7,7 +7,6 @@ import { MeetingCategoryModel } from "./meetingCategoryModel";
 import { nameofFactory } from "../../../app/helper";
 import { RootState, AppDispatch } from "../../../app/store";
 
-
 type Props = {
   data: Array<MeetingCategoryModel>,
   status: 'loading' | 'idle',

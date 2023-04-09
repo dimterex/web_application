@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Link, List
 import React from "react";
 import { connect } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
+import { Widget } from "../../../common/widget/baseWidget";
 import { DockerModel } from "./dockerModel";
 import { getContainerWithPortsAsync } from "./dockerSlice";
 
@@ -15,7 +16,6 @@ type Props = {
   }
   
   const mapStateToProps = (state: RootState) => {
-   
     return { 
       data: state.dockerSlice.containers,
     };
@@ -40,28 +40,29 @@ type Props = {
 
     render() {
       return (
-        <Box className="grid-child">
-            <Accordion disableGutters>
-                <AccordionSummary>
-                    Docker urls
-                </AccordionSummary>
-            </Accordion>
-            
-            {
-                this.props.data.map((container, index) => {
-                    return <Box>
-                        {
-                            container.ports.map((port, port_index) => {
-                                let link = `${window.location.protocol}//${window.location.hostname}:${port}`;
-                                return <Accordion>
-                                        <Link target="_blank" rel="noopener noreferrer" href={link}> {container.name}:{port}</Link>
-                                    </Accordion>
-                            })
-                        }
-                        </Box>
-                })
-            }
-        </Box>
+        <Widget>
+           <Accordion disableGutters>
+                  <AccordionSummary>
+                      Docker urls
+                  </AccordionSummary>
+              </Accordion>
+              
+              {
+                  this.props.data.map((container, index) => {
+                      return <Box key={index}>
+                          {
+                              container.ports.map((port, port_index) => {
+                                  let link = `${window.location.protocol}//${window.location.hostname}:${port}`;
+                                  return <Accordion key={port_index}>
+                                          <Link  target="_blank" rel="noopener noreferrer" href={link}> {container.name}:{port}</Link>
+                                      </Accordion>
+                              })
+                          }
+                          </Box>
+                  })
+              }
+        </Widget>
+        
       );
     }
   }

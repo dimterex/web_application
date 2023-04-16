@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 
 import './App.css';
-import { useAppDispatch } from './app/hooks';
 import moment from 'moment';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -15,9 +14,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 import ConfigurationView from './pages/configurationView';
-import Navbar from './common/header/header';
-import { getMeetingsByDateAsync } from './components/main_tab/meeting/meetingsSlice';
-import { getMonthStatisticsAsync } from './components/main_tab/worklog/worklogSlice';
+import NavtigationBarView from './common/header/header';
 
 const themeLight = createTheme({
   palette: {
@@ -67,13 +64,6 @@ moment.locale('en', {
 function App() {
 
   const [light, setLight] = React.useState(false);
-  const dispatch = useAppDispatch();
-  const now = moment();
-  dispatch(getMeetingsByDateAsync(now));
-  dispatch(getMonthStatisticsAsync({
-    day: now,
-    force: false
-  }));
 
   const pages = [{
     name: 'Dozzle logviewer',
@@ -89,7 +79,7 @@ function App() {
       <ReactNotifications />
      
       <BrowserRouter>
-          <Navbar pages={pages} handlerThemeChange={() => setLight(prev => !prev)}  />
+          <NavtigationBarView pages={pages} handlerThemeChange={() => setLight(prev => !prev)}  />
           <Routes>
             <Route path='/' element={<MainView />}></Route>
             <Route path='/configuration' element={ <ConfigurationView />}></Route>

@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
 import { Widget } from "../../../common/widget/baseWidget";
-import { DockerModel } from "./dockerModel";
+import { DockerModel } from "./interfaces/dockerModel";
 import { getContainerWithPortsAsync } from "./dockerSlice";
 
 type Props = {
@@ -68,3 +68,4 @@ type Props = {
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(DockerContainerView)
+  

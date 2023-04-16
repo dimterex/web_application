@@ -5,46 +5,87 @@ import { StaticDatePicker, PickersDay, LocalizationProvider, PickersDayProps, pi
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 import TextField from "@mui/material/TextField";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+
 import { change_selected_day, getMeetingsByDateAsync } from "../meeting/meetingsSlice";
-import { selectWorklogResultState, SUCCESS_WORKLOG_TIME, getMonthStatisticsAsync } from "../worklog/worklogSlice";
+import { SUCCESS_WORKLOG_TIME, getMonthStatisticsAsync } from "../worklog/worklogSlice";
 import { Widget } from "../../../common/widget/baseWidget";
+import { connect } from "react-redux";
+import { RootState, AppDispatch } from "../../../app/store";
+import { MonthTime } from "../../../api/statistics/messages/monthTimesResponse";
+
+type Props = {
+  data: Array<MonthTime>,
+  getMonthStatisticsAsync: (value: Moment) => void,
+  updateValue: (value: Moment) => void,
+  initialize: () => void,
+};
+
+type State = {
+  selectedDate: Moment,
+}
+
+const mapStateToProps = (state: RootState) => {
+  return { 
+    data: state.worklog.events
+  };
+};
+
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    initialize: async () => {
+      const now = moment();
+      dispatch(getMeetingsByDateAsync(now));
+      dispatch(getMonthStatisticsAsync({
+        day: now,
+        force: false
+      }));
+    },
+    getMonthStatisticsAsync: async (value: Moment) => {
+      dispatch(getMonthStatisticsAsync({
+        day: value,
+        force: false
+      }))
+
+    },
+    updateValue: async (value: Moment) =>  {
+      dispatch(change_selected_day(value.format('LL')));
+      dispatch(getMeetingsByDateAsync(value));
+    }
+  };
+};
 
 
-export default function Calendar()  {   
+class Calendar extends React.Component<Props, State> {   
+  constructor(props: Props) {
+    super(props);
+    this.props.initialize();
+    this.state = { selectedDate: moment() }
+  }
 
-  const writed = {
+  writed = {
     color: "#02bd02",
     fontWeight: "bold",
     fontSize: 18,
     textDecoration: "underline"
   };
 
-  const not_writed_full_time = {
+  not_writed_full_time = {
     color: "#e8da13",
     fontWeight: "bold",
     fontSize: 18,
     textDecoration: "underline"
   };
 
-    const [value, setValue] = React.useState<Moment | null>(moment());
-    const dispatch = useAppDispatch();
-    const worklog_state = useAppSelector(selectWorklogResultState)
-
-    const renderWeekPickerDay = (
-        date: Moment,
-        selectedDates: Array<Moment | null>,
-        pickersDayProps: PickersDayProps<Moment>
-      ) => {
-        const matchedStyles = worklog_state.reduce((a, v) => {
+    renderWeekPickerDay = (date: Moment, selectedDates: Array<Moment | null>, pickersDayProps: PickersDayProps<Moment>) => {
+        const matchedStyles = this.props.data.reduce((a, v) => {
           let worklog_day = moment(v.date);
           let isSameDate = worklog_day.isSame(date, 'date');
           if (isSameDate && v.duration > SUCCESS_WORKLOG_TIME) {
-            return writed
+            return this.writed
           }
 
           if (isSameDate && v.duration > 0) {
-            return not_writed_full_time
+            return this.not_writed_full_time
           }
 
           return a;
@@ -63,30 +104,29 @@ export default function Calendar()  {
         );
       };
 
+  render() { 
     return <Widget>
       <LocalizationProvider  dateAdapter={AdapterMoment}>
               <StaticDatePicker 
                   displayStaticWrapperAs="desktop"
-                  value={value}
-                  renderDay={renderWeekPickerDay}
-                  onMonthChange={(newValue) => {
-                    dispatch(getMonthStatisticsAsync({
-                      day: newValue,
-                      force: false
-                    }))
-                  }}
-                  onChange={(newValue) => {
-                      if (newValue) {
-                          dispatch(change_selected_day(newValue.format('LL')));
-                          dispatch(getMeetingsByDateAsync(newValue));
-                          setValue(newValue);
-                      }
-                  }}
+                  value={this.state.selectedDate}
+                  renderDay={this.renderWeekPickerDay}
+                  onMonthChange={(newValue) => { this.props.getMonthStatisticsAsync(newValue)}}
+                   
+                  onChange={(newValue) => { 
+                    if (newValue) {
+                      this.props.updateValue(newValue)
+                      this.setState({
+                        selectedDate: newValue,
+                      })
+                    }
+                   }}
+                     
                   renderInput={(params) => <TextField {...params} />}
           />
       </LocalizationProvider>
     </Widget>
-      
+  }
 }
 
-
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

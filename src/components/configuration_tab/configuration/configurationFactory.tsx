@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { selectSelectedType } from "./configurationSlice";
 import { ConfigurationTypes } from "./configurationTypes";
 import UrlslView from "../urls/urlslView";
 import TokenslView from "../tokens/tokenslView";
@@ -7,16 +6,40 @@ import TokenslView from "../tokens/tokenslView";
 import TaskCategorieslView from "../task_categories/taskCategoriesView"
 import MeetingsCategorieslView from "../meeting_categories/meetingsCategoriesView"
 import SyncHistorylView from "../syncHistory/syncHistorylView";
-import { useAppSelector } from "../../../app/hooks";
 import CredentionalView from "../credentials/credentionalView";
 import PeriodicalTasksView from "../periodical_tasks/periodicalTasksView";
+import { ReactNode } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { RootState, AppDispatch } from "../../../app/store";
 
-export function ConfigurationFactory() {
+type Props = {
+    selected_type: ConfigurationTypes,
+  };
+  
+  type State = {
+  }
+  
+  const mapStateToProps = (state: RootState) => {
+    return { 
+        selected_type: state.configuration.selected_type,
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+     
+    };
+  };
+  
+  
+  class ConfigurationFactoryView extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+      }
 
-    let selectedSource = useAppSelector(selectSelectedType);
-
-    const renderSwitch = function() {
-        switch(selectedSource) {
+      renderSwitch = () => {
+        switch(this.props.selected_type) {
             case ConfigurationTypes.credentials:
                 return <CredentionalView />;
             case ConfigurationTypes.outlook_categories:
@@ -36,11 +59,14 @@ export function ConfigurationFactory() {
         }
     }
 
-    return ( 
-        <Box>
-            {   
-                renderSwitch()
-            }
-    </Box>
-  );
+
+      render(): ReactNode {
+        return <Box>
+                {   
+                    this.renderSwitch()
+                }
+        </Box>
+      }
 }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigurationFactoryView);

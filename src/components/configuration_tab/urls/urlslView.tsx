@@ -121,4 +121,3 @@ class UrlslView extends React.Component<Props, State> {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UrlslView);
-

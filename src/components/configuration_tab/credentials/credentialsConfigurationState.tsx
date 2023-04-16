@@ -1,5 +1,3 @@
-import { CredentialModel } from "./credentialModel";
-
 export interface CredentialsConfigurationState {
     state: 'loading' | 'idle',
     login: string,

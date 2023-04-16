@@ -1,26 +1,58 @@
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Tooltip, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import React from "react";
-import { HeaderInterface } from "./interface/headerInterface";
-  
+import { connect } from "react-redux";
+import { RootState, AppDispatch } from "../../app/store";
+import { PageInfo } from "./interface/pageInfo";
 
-const Navbar = (props: HeaderInterface) => {
 
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElNav(event.currentTarget);
+type Props = {
+  handlerThemeChange: () => void,
+  pages: PageInfo[],
+};
+
+type State = {
+  anchorElNav: null | HTMLElement,
+}
+
+const mapStateToProps = (state: RootState) => {
+  return { 
+  };
+};
+
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+   
+  };
+};
+
+
+class NavtigationBarView extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      anchorElNav: null,
     };
+  }
+
+  handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    this.setState({
+      anchorElNav: event.currentTarget
+    });
+  };
+
+  handleCloseNavMenu = () => {
+    this.setState({
+      anchorElNav: null
+    });
+  };
+
   
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-
-
-  return (
-    <AppBar position="static" sx={{zIndex: 99999}}>
+  render() {
+    return <AppBar position="static" sx={{zIndex: 99999}}>
     <Container maxWidth="xl">
       <Toolbar disableGutters>
         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -48,14 +80,14 @@ const Navbar = (props: HeaderInterface) => {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={handleOpenNavMenu}
+            onClick={this.handleOpenNavMenu}
             color="inherit"
           >
             <MenuIcon />
           </IconButton>
           <Menu
             id="menu-appbar"
-            anchorEl={anchorElNav}
+            anchorEl={this.state.anchorElNav}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'left',
@@ -65,15 +97,15 @@ const Navbar = (props: HeaderInterface) => {
               vertical: 'top',
               horizontal: 'left',
             }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
+            open={Boolean(this.state.anchorElNav)}
+            onClose={this.handleCloseNavMenu}
             sx={{
               display: { xs: 'block', md: 'none' },
             }}
           >
             {
-              props.pages.map((page, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
+              this.props.pages.map((page, index) => (
+                <MenuItem key={index} onClick={this.handleCloseNavMenu}>
                   <Typography 
                       noWrap
                       component="a"
@@ -107,10 +139,10 @@ const Navbar = (props: HeaderInterface) => {
         </Typography>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {
-            props.pages.map((page, index) => (
+            this.props.pages.map((page, index) => (
               <Button
                 key={index}
-                onClick={handleCloseNavMenu}
+                onClick={this.handleCloseNavMenu}
                 href={page.url}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -120,12 +152,12 @@ const Navbar = (props: HeaderInterface) => {
           }
         </Box>
 
-        <Button onClick={props.handlerThemeChange} sx={{ my: 2, color: 'white', display: 'block' }}>Toggle Theme</Button>
+        <Button onClick={this.props.handlerThemeChange} sx={{ my: 2, color: 'white', display: 'block' }}>Toggle Theme</Button>
         
       </Toolbar>
     </Container>
   </AppBar>
-  )
-};
-  
-export default Navbar;
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavtigationBarView);

@@ -1,53 +1,79 @@
 import { Box, List, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { change_selected_type, selectSelectedType } from "./configurationSlice";
+import React, { ReactNode } from "react";
+import { change_selected_type } from "./configurationSlice";
 import { ConfigurationTypes } from "./configurationTypes";
+import { connect } from "react-redux";
+import { RootState, AppDispatch } from "../../../app/store";
 
-export function ConfigurationsContainer() {
 
-    const dispatch = useAppDispatch();
-    let oldState = -1;
-
-    const handleListItemClick = (
-      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      title: ConfigurationTypes,
-    ) => {
-        if (oldState == title)
-            return;
-        oldState = title;
-        dispatch(change_selected_type(title));
-    };
-    
-    let types = new Array<ConfigurationTypes>();
-    types.push(ConfigurationTypes.credentials);
-    types.push(ConfigurationTypes.outlook_categories);
-    types.push(ConfigurationTypes.todoist_categories);
-    types.push(ConfigurationTypes.tokens);
-    types.push(ConfigurationTypes.urls);
-    types.push(ConfigurationTypes.periodical_tasks);
-    types.push(ConfigurationTypes.sync_history);
-
-   
-    let selectedSource = useAppSelector(selectSelectedType);
+type Props = {
+    selected_type: ConfigurationTypes,
+    types: Array<ConfigurationTypes>,
+    change_type: (type: ConfigurationTypes) => void,
+  };
   
-    return ( 
-    <Box>
-        <Divider />
-        <List component="nav">
-            {
-                types.map((source, index) => (
-                    <Box key={index}>
-                        <ListItemButton
-                            selected={selectedSource == source }
-                            onClick={(event) => handleListItemClick(event, source)}>
-                        <ListItemText primary={ConfigurationTypes[source]} />
-                        </ListItemButton>
-                        <Divider />
-                    </Box>
-                ))
-            }
-        </List>
-    </Box>
-    );
+  type State = {
+  }
+  
+  const mapStateToProps = (state: RootState) => {
+    return { 
+        selected_type: state.configuration.selected_type,
+        types: new Array<ConfigurationTypes>(
+            ConfigurationTypes.credentials,
+            ConfigurationTypes.outlook_categories,
+            ConfigurationTypes.todoist_categories,
+            ConfigurationTypes.tokens,
+            ConfigurationTypes.urls,
+            ConfigurationTypes.periodical_tasks,
+            ConfigurationTypes.sync_history,
+        ),
+    };
+  };
+  
+  const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        change_type: async (type: ConfigurationTypes) => {
+          dispatch(change_selected_type(type));
+        },
+    };
+  };
+  
+  
+  class ConfigurationsContainer extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+    }
+
+    handleListItemClick = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        title: ConfigurationTypes,
+      ) => {
+        if (this.props.selected_type == title) {
+            return;
+        }
+
+        this.props.change_type(title);
+      };
+
+    render(): ReactNode {
+        return <Box>
+            <Divider />
+            <List component="nav">
+                {
+                    this.props.types.map((source, index) => (
+                        <Box key={index}>
+                            <ListItemButton
+                                selected={this.props.selected_type == source }
+                                onClick={(event) => this.handleListItemClick(event, source)}>
+                            <ListItemText primary={ConfigurationTypes[source]} />
+                            </ListItemButton>
+                            <Divider />
+                        </Box>
+                    ))
+                }
+            </List>
+        </Box>
+    }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfigurationsContainer);

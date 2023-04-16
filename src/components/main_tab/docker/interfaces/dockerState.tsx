@@ -1,4 +1,4 @@
-import { DockerModel } from "../dockerModel";
+import { DockerModel } from "./dockerModel";
 
 export interface DockerState {
     status: 'loading' | 'idle',

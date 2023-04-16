@@ -1,4 +1,4 @@
-import { DockerModel } from "../../../components/main_tab/docker/dockerModel";
+import { DockerModel } from "../../../components/main_tab/docker/interfaces/dockerModel";
 
 export interface GetContainerWithPortsResponse {
     status: 'ok' | 'error',

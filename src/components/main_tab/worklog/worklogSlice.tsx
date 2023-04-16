@@ -8,7 +8,7 @@ import { WorklogState } from './interfaces/worklogState';
 
 const initialState: WorklogState = {
   events: [],
-  history_message: null,
+  history_message: [],
 };
 
 
@@ -57,6 +57,7 @@ export const worklogSlice = createSlice({
   initialState,
   reducers: {
       clear_worklog_message: (state, action: PayloadAction) => {
+        state.history_message = []
     },
 
   },
@@ -78,7 +79,14 @@ export const worklogSlice = createSlice({
       })
 
       .addCase(getHistoryWorklogByDateAsync.fulfilled, (state, action) => {
-        state.history_message = action.payload;
+        var messages = new Array<string>;
+        action.payload?.forEach(element => {
+            element.split("\n").forEach(row => {
+                messages.push(row);
+            })
+        });
+
+        state.history_message = messages;
       })
       .addCase(getHistoryWorklogByDateAsync.rejected, (state, action) => {
         NotificationService.raise_error(null, action.payload as string);
@@ -86,11 +94,7 @@ export const worklogSlice = createSlice({
   },
 });
 
-export const selectHistoryWorklogResultState = (state: RootState) => state.worklog.history_message;
-export const selectWorklogResultState = (state: RootState) => state.worklog.events;
-
-export const {clear_worklog_message} = worklogSlice.actions;
-
+export const { clear_worklog_message } = worklogSlice.actions;
 
 export default worklogSlice.reducer;
 

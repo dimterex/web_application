@@ -2,6 +2,5 @@ import { MonthTime } from "../../../../api/statistics/messages/monthTimesRespons
 
 export interface WorklogState {
   events: MonthTime[];
-
-  history_message: Array<string> | null;
+  history_message: Array<string>;
 }

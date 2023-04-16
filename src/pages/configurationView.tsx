@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
-import { ConfigurationFactory } from "../components/configuration_tab/configuration/configurationFactory";
-import { ConfigurationsContainer } from "../components/configuration_tab/configuration/configurationsContainer";
+import ConfigurationFactoryView from "../components/configuration_tab/configuration/configurationFactory";
+import ConfigurationsContainer from "../components/configuration_tab/configuration/configurationsContainer";
 
 export default function ConfigurationView() {
 
@@ -25,7 +25,7 @@ export default function ConfigurationView() {
 
                 boxSizing: 'border-box',
                 }}  bgcolor={theme.palette.background.paper}>
-      <ConfigurationFactory />
+      <ConfigurationFactoryView />
     </Box>
   </Box>
   );

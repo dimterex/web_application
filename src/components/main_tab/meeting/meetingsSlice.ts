@@ -2,17 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment, { Moment } from 'moment';
 import { getMeetingsByDate } from '../../../api/meetings/meetingsApi';
 import { MeetingsItem } from '../../../api/meetings/meetingsItem';
-import { RootState } from '../../../app/store';
 import { NotificationService } from '../../../common/notification/notificationService';
 
 export interface MeetingsByDateState {
   events: MeetingsItem[];
-  day: string;
+  day: Moment;
 }
 
 const initialState: MeetingsByDateState = {
   events: [],
-  day: moment().format('LL'),
+  day: moment(),
 };
 
 export const getMeetingsByDateAsync = createAsyncThunk('meetings/getMeetingsByDateAsync', 
@@ -30,7 +29,7 @@ export const meetingsSlice = createSlice({
   initialState,
   reducers: {
     change_selected_day: (state, action: PayloadAction<string>) => {
-      state.day = action.payload;
+      state.day = moment(action.payload);
       state.events = []
     },
   },
@@ -46,8 +45,5 @@ export const meetingsSlice = createSlice({
 });
 
 export const { change_selected_day } = meetingsSlice.actions;
-
-export const selectMeetingsState = (state: RootState) => state.meetings.events;
-export const selecSelectedDayState = (state: RootState) => state.meetings.day;
 
 export default meetingsSlice.reducer;
